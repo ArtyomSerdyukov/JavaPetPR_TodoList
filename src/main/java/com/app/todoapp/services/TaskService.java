@@ -5,7 +5,6 @@ import com.app.todoapp.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -20,7 +19,7 @@ public class TaskService {
     }
 
     public void createTask(String title) {
-        Task task=new Task();
+        Task task = new Task();
         task.setTitle(title);
         task.setCompleted(false);
         taskRepository.save(task);
@@ -31,11 +30,22 @@ public class TaskService {
     }
 
     public void toggleTask(Long id) {
-        Task task=taskRepository.findById(id)
+        Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Недействительный id таска"));
         task.setCompleted(!task.isCompleted());
         taskRepository.save(task);
+    }
 
+    // Новый метод для получения задачи по ID
+    public Task getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Задача не найдена с id: " + id));
+    }
 
+    // Новый метод для обновления задачи
+    public void updateTask(Long id, String newTitle) {
+        Task task = getTaskById(id);
+        task.setTitle(newTitle);
+        taskRepository.save(task);
     }
 }

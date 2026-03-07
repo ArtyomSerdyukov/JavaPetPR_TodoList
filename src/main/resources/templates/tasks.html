@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Todo Приложение</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .text-strikethrough{
-        text-decoration: line-through;
-        color: grey;}
+            text-decoration: line-through;
+            color: grey;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 class="mt-5 text-center"> ToDo Приложение</h1>
+    <h1 class="mt-5 text-center">ToDo Приложение</h1>
     <form action="/" method="post" class="row mt-3">
         <div class="col-md-10">
             <input class="form-control form-control-lg" type="text" name="title" placeholder="Добавь новый таск..." required>
@@ -26,18 +27,18 @@
         <th:block th:each="task : ${tasks}">
             <div class="card mb-2">
                 <div class="card-body d-flex justify-content-between align-items-center">
-                <span th:classappend="${task.completed} ? 'text-strikethrough'" th:text="${task.title}"> Название Таска</span>
+                    <span th:classappend="${task.completed} ? 'text-strikethrough'" th:text="${task.title}">Название Таска</span>
 
                     <div>
                         <a th:href="@{/{id}/toggle(id=${task.id})}" class="btn btn-outline-secondary btn-sm">Готов</a>
+                        
+                        <a th:href="@{/{id}/edit(id=${task.id})}" class="btn btn-outline-primary btn-sm">Редактировать</a>
                         <a th:href="@{/{id}/delete(id=${task.id})}" class="btn btn-outline-danger btn-sm">Удалить</a>
-
                     </div>
                 </div>
             </div>
         </th:block>
     </div>
-
 </div>
 </body>
 </html>
